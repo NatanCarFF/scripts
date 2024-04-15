@@ -18,20 +18,10 @@ echo "Instalando e configurando zram..."
 sudo apt install -y zram-config
 
 # Limitar serviços em segundo plano
-echo "Limitando serviços em segundo plano..."
-sudo systemctl list-unit-files --state=enabled
-echo "Deseja desativar algum serviço? (S/N)"
-read resposta
-if [ "$resposta" == "S" ] || [ "$resposta" == "s" ]; then
-    echo "Digite o nome do serviço que deseja desativar:"
-    read servico
-    sudo systemctl disable "$servico"
-fi
 
 # Instalar e executar htop
 echo "Instalando e executando htop para monitorar recursos..."
 sudo apt install -y htop
-htop
 
 # Desativar efeitos visuais
 echo "Desativando efeitos visuais..."
