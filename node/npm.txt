@@ -1,0 +1,15 @@
+// node -v
+// npm -v
+// npm install -g http-server
+// touch index.html
+// http-server ./
+// html : 5
+// <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+// https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css
+// cdn normalize css
+// touch ./assets/css/global.css
+// touch ./assets/js/main.js
+// https://fonts.google.com/
+// collor picker extensão web
+// media query css
+// 
