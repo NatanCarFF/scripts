@@ -12,4 +12,6 @@
 // https://fonts.google.com/
 // collor picker extensão web
 // media query css
-// 
+
+// subir pg server
+// http-server -p 3001 ./
