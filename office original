@@ -1,0 +1,17 @@
+https://www.youtube.com/watch?v=QxQIvsgYrEo
+
+Link: https://config.office.com/deploymentsettings
+Link: https://www.microsoft.com/en-us/download/details.aspx?id=49117
+
+Passo a passo
+
+1° Criar Uma Pasta " MS Office Setup" na raiz C:\
+2° Baixar "Office Customization Tool"
+3° 64BIT Depois Office LTSC Professional Plus 2021 - Volume Licence
+4° Language
+5° Office Open XML Formats
+6° Office Deployment Tool
+7° Download Dentro do " MS Office Setup" e Execute
+8° CD\
+9° C:\ MS Office setup
+10° Setup.exe /configure Configuração.xml
