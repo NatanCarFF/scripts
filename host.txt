@@ -1,0 +1,12 @@
+http://localhost:62354/
+http://172.17.111.198
+ASCorp@2023
+5Y4m7xE:~gHQ'Q?r
+
+	127.0.0.1       localhost	web.whatsapp.com
+	127.0.0.1       localhost	www.youtube.com
+	127.0.0.1       localhost	open.spotify.com
+	127.0.0.1       localhost	www.spotify.com
+	127.0.0.1       localhost	pt-br.facebook.com
+	127.0.0.1       localhost	www.instagram.com
+	127.0.0.1       localhost	www.facebook.com

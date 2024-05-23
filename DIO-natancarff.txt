@@ -1,0 +1,147 @@
+## WSL
+
+## RECURSOS DO WINDOWS
+
+✔ Windows 10/11 Pro
+✔ Plataforma de Maquina Virtual
+✔ Plataforma do Hipervisor do Windows
+✔ Subsistema do Windows para Linux
+
+## ATUALIZAÇÃO DO WINDOWS
+
+✔ https://aka.ms/wsl2kernel
+✔ https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
+## CMD ADM
+
+✔ bcdedit
+✔ bcdedit /set hypervisorlaunchtype auto
+
+# auto para WSL
+# off para virtualbox
+
+## BAIXAR SISTEMA DA LOJA MICROSOFT
+
+## CRIAR USER E PASSWD
+
+## ACESSO REMOTO LINUX
+
+✔ ip a
+✔ ip em enp0s3
+✔ putty e puttygen
+
+## INSTALAR SERVIÇO DE SERVIDOR
+
+✔ apt-get install openssh-server
+
+## ACESSO REMOTO VIA LINUX
+
+✔ ssh usuario@ip
+✔ ssh -i key.pen usuario@ip
+
+## USAR PUTTGEN
+
+✔ Botão Load>todos arquivos>save private key>ppk
+
+## COMANDOS NAVEGAÇÃO/USER
+
+✔ date
+✔ clear
+
+Usuário $ super usuário # pasta usuário ~
+
+✔ pwd
+✔ cd diretório
+✔ cd ..
+✔ mkdir
+✔ rmdir
+✔ rm para remover arquivos
+✔ rm -rfv para mostrar oque está deletando -i para perguntar antes de excluir
+✔ rm -rf para deletar tudo
+✔ sudo
+✔ su
+✔ cd /
+✔ ls
+✔ passwd
+✔ ls | more CTRL + C fechar
+✔ ls -l para saber as permissões
+✔ ls -lh para saber o tamanho dos arquivos
+✔ ls -la para ver oque estava oculto
+
+TAB completar nome
+CTRL + L limpar tela
+Wind + . emoticons
+
+## MAIS COMANDOS
+
+✔ apt
+✔ apt-get
+✔ apt search
+✔ apt install
+✔ touch arquivo.txt
+✔ nano arquivo.txt
+✔ man comando para visualizar ajuda
+✔ comando --help para ajuda
+
+## BUSCAR ARQUIVO
+
+✔ find -name arqui*
+
+## ADM SISTEMA
+
+✔ cat /etc/group
+✔ cat /etc/sudoers
+
+## LIBERAR ACESSO ROOT REMOTO
+
+✔ cat /etc/ssh/sshd_config
+✔ nano /etc/ssh/sshd_config
+#PermitRootLogin prohibit-password > PermitRootLogin yes
+CTRL + O > ENTER > CTRL + X
+✔ systemctl status sshd
+✔ systemctl restart sshd
+
+## EDITORES DE TEXTO
+
+✔ nano
+
+✔ vi
+edição tecla i
+sair do modo edição tecla ESC
+abrir menu tecla :
+comando salvar digitar w na linha do menu
+comando sair digitar q na linha do menu
+
+✔ cat para visualizar arquivo
+
+## ULTIMA AULA > LINUX EXCENCIALS > MANIPULANDO ARQUIVOS NO LINUX > TRABALHANDO COM ARQUIVOS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

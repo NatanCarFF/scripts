@@ -1,0 +1,9 @@
+https://infografic-public-wiki.notion.site/Oh-My-Posh-Instala-o-e-configura-o-Windows-Terminal-d25612e4282443038dff7f1732fe139a
+
+***1º***
+winget install JanDeDobbeleer.OhMyPosh -s winget
+
+
+
+***PROGRAMAS WINDONWS***
+winget install Microsoft.WindowsTerminal Microsoft.PowerToys Microsoft.VisualStudioCode
