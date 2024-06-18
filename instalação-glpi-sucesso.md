@@ -106,3 +106,114 @@ Para instalar o GLPI em um contêiner e o banco de dados (por exemplo, MariaDB) 
 - **Segurança:** Para produção, é recomendável usar senhas mais fortes e configurar a segurança adequadamente, incluindo a utilização de um arquivo `.env` para variáveis de ambiente sensíveis.
 
 Com este setup, você pode acessar o GLPI no seu navegador através do endereço `http://localhost` e seguir as instruções de instalação do GLPI para configurar o sistema.
+
+----------------------------------------------------
+
+Para atender às suas solicitações de segurança ao usar o GLPI, você pode seguir estes passos após a instalação inicial. Aqui está como você pode atualizar as senhas dos usuários padrão e remover o arquivo `install/install.php` automaticamente usando um script bash dentro do contêiner do GLPI.
+
+### Atualizar Docker Compose e Adicionar Scripts de Inicialização
+
+Primeiro, vamos ajustar o `docker-compose.yml` para adicionar um script de inicialização que alterará as senhas dos usuários padrão e removerá o arquivo `install/install.php`.
+
+#### Estrutura de Diretórios
+
+Adicione um diretório `scripts` para armazenar o script de inicialização:
+
+```bash
+mkdir scripts
+```
+
+#### Script de Inicialização
+
+Crie um arquivo chamado `initialize_glpi.sh` dentro do diretório `scripts`:
+
+```bash
+#!/bin/bash
+
+# Espera o banco de dados estar disponível
+until mysql -h "$GLPI_DB_HOST" -u "$GLPI_DB_USER" -p"$GLPI_DB_PASSWORD" "$GLPI_DB_NAME" -e "show tables;" > /dev/null 2>&1; do
+  echo "Aguardando banco de dados..."
+  sleep 3
+done
+
+# Conexão com o banco de dados para atualizar senhas dos usuários padrão
+mysql -h "$GLPI_DB_HOST" -u "$GLPI_DB_USER" -p"$GLPI_DB_PASSWORD" "$GLPI_DB_NAME" <<-EOSQL
+  UPDATE glpi_users SET password = MD5('new_glpi_password') WHERE name = 'glpi';
+  UPDATE glpi_users SET password = MD5('new_postonly_password') WHERE name = 'post-only';
+  UPDATE glpi_users SET password = MD5('new_tech_password') WHERE name = 'tech';
+  UPDATE glpi_users SET password = MD5('new_normal_password') WHERE name = 'normal';
+EOSQL
+
+# Remover o arquivo de instalação
+rm -f /var/www/html/glpi/install/install.php
+
+echo "Senhas de usuários padrão atualizadas e arquivo install.php removido."
+```
+
+Certifique-se de dar permissão de execução ao script:
+
+```bash
+chmod +x scripts/initialize_glpi.sh
+```
+
+#### Atualizar `docker-compose.yml`
+
+Atualize o `docker-compose.yml` para copiar e executar o script de inicialização:
+
+```yaml
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: glpi-db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./mariadb/data:/var/lib/mysql
+
+  glpi:
+    image: diouxx/glpi:latest
+    container_name: glpi-app
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      GLPI_DB_HOST: db
+      GLPI_DB_USER: ${MYSQL_USER}
+      GLPI_DB_PASSWORD: ${MYSQL_PASSWORD}
+      GLPI_DB_NAME: ${MYSQL_DATABASE}
+    depends_on:
+      - db
+    volumes:
+      - ./glpi:/var/www/html/glpi
+    entrypoint: /bin/bash -c "/usr/sbin/apache2ctl -D FOREGROUND & /scripts/initialize_glpi.sh"
+    volumes:
+      - ./glpi:/var/www/html/glpi
+      - ./scripts:/scripts
+
+volumes:
+  mariadb_data:
+```
+
+### Execute o Docker Compose
+
+1. **Suba os contêineres:**
+
+   ```bash
+   docker-compose up -d
+   ```
+
+2. **Verifique os logs para assegurar que as alterações foram aplicadas:**
+
+   ```bash
+   docker-compose logs -f glpi-app
+   ```
+
+Este setup fará com que, após o banco de dados estar disponível, o script `initialize_glpi.sh` seja executado. Ele irá:
+
+- Atualizar as senhas dos usuários padrão para novas senhas seguras.
+- Remover o arquivo `install/install.php`.
+
+Dessa forma, você garante que as senhas dos usuários padrão são seguras e que o arquivo de instalação é removido após a instalação inicial, melhorando a segurança do seu setup GLPI.
