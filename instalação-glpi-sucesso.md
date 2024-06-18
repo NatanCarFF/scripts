@@ -217,3 +217,100 @@ Este setup fará com que, após o banco de dados estar disponível, o script `in
 - Remover o arquivo `install/install.php`.
 
 Dessa forma, você garante que as senhas dos usuários padrão são seguras e que o arquivo de instalação é removido após a instalação inicial, melhorando a segurança do seu setup GLPI.
+
+_____________________________________________________________
+
+Vamos corrigir o problema com a carga de timezones no MySQL para o GLPI. Para isso, vamos seguir os passos detalhados:
+
+1. **Preencher o banco de dados de timezones:** Certifique-se de que as informações de timezones estão carregadas no banco de dados.
+2. **Conceder as permissões necessárias:** Assegure-se de que o usuário `glpi_user` tenha as permissões adequadas para acessar as informações de timezones.
+
+### Passos:
+
+#### 1. Preencher o Banco de Dados de Timezones
+
+Primeiro, precisamos garantir que o banco de dados de timezones esteja corretamente preenchido. Vamos usar um contêiner temporário do MySQL Client para fazer isso.
+
+1. **Suba um contêiner MySQL Client temporário:**
+
+   ```bash
+   docker run -it --rm --network glpi-docker_default mysql:latest bash
+   ```
+
+2. **Dentro do contêiner MySQL Client, importe as informações de timezones:**
+
+   ```bash
+   mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -h glpi-db -u root -p mysql
+   ```
+
+   Quando solicitado, insira a senha do root definida no seu `docker-compose.yml`.
+
+#### 2. Conceder Permissões ao Usuário GLPI
+
+3. **Ainda dentro do contêiner MySQL Client, acesse o MySQL como root:**
+
+   ```bash
+   mysql -h glpi-db -u root -p
+   ```
+
+4. **No prompt do MySQL, conceda permissões ao usuário `glpi_user`:**
+
+   ```sql
+   GRANT SELECT ON mysql.time_zone_name TO 'glpi_user'@'%';
+   FLUSH PRIVILEGES;
+   EXIT;
+   ```
+
+5. **Saia do contêiner temporário:**
+
+   ```bash
+   exit
+   ```
+
+#### 3. Subir os Contêineres e Verificar
+
+1. **Suba os contêineres (caso ainda não estejam rodando):**
+
+   ```bash
+   docker-compose up -d
+   ```
+
+2. **Verifique os logs para assegurar que as alterações foram aplicadas:**
+
+   ```bash
+   docker-compose logs -f glpi-app
+   ```
+
+### Resumo dos Comandos
+
+Aqui está um resumo dos comandos para fácil referência:
+
+```bash
+# Iniciar o contêiner do MySQL Client na rede correta
+docker run -it --rm --network glpi-docker_default mysql:latest bash
+
+# Dentro do contêiner do MySQL Client, importar todas as timezones
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -h glpi-db -u root -p mysql
+
+# Acessar o MySQL para conceder permissões
+mysql -h glpi-db -u root -p
+
+# No prompt do MySQL, conceder permissões e sair
+GRANT SELECT ON mysql.time_zone_name TO 'glpi_user'@'%';
+FLUSH PRIVILEGES;
+EXIT;
+
+# Sair do contêiner temporário
+exit
+```
+
+### Verificação
+
+Acesse o GLPI no navegador e verifique se o problema de time zone foi resolvido.
+
+### Notas Adicionais
+
+- **mysql_tzinfo_to_sql:** Este comando converte os arquivos de informações de time zones do sistema operacional para um formato que pode ser importado pelo MySQL.
+- **Permissões:** O comando `GRANT SELECT ON mysql.time_zone_name TO 'glpi_user'@'%';` concede ao usuário `glpi_user` a permissão de selecionar na tabela de time zones do MySQL.
+
+Com esses passos, você deve preencher o banco de dados de time zones e garantir que o usuário `glpi_user` tenha as permissões necessárias para acessar as informações de time zones, resolvendo o problema de acesso ao banco de dados de time zones no GLPI.
