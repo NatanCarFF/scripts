@@ -16,4 +16,12 @@ https://senhas-fortes.netlify.app/
 https://developer.mozilla.org/pt-BR/docs/Web/JavaScript
 ### DEIXAR IMAGEM COM MAIS QUALIDADE E MENOS TAMANHO
 https://tinypng.com/
-###
+### JUST COLOR PICKER PRA PEGAR A COR DA TELA
+### CHAT GPT PRONPTS
+https://helpful-jump-17b.notion.site/Prompts-assertivos-121ebbf78f6440d98c58d1509b3e030f
+### PERSONALIZAR SV CODE
+https://www.linkedin.com/posts/felipeaguiar-exe_dicas-de-personaliza%C3%A7%C3%A3o-vscode-code-activity-7066395543580622848-YuOG?utm_source=share&utm_medium=member_desktop
+### CRIAÇÃO DE EBOOK PROPT
+https://chat.openai.com/share/adb05d46-0c67-48ba-ab54-13d53048cd0c
+### ANTI-VÍRUS
+https://www.kaspersky.com.br/downloads/free-antivirus
