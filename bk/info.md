@@ -25,3 +25,5 @@ https://www.linkedin.com/posts/felipeaguiar-exe_dicas-de-personaliza%C3%A7%C3%A3
 https://chat.openai.com/share/adb05d46-0c67-48ba-ab54-13d53048cd0c
 ### ANTI-VÍRUS
 https://www.kaspersky.com.br/downloads/free-antivirus
+### transferir arquivos
+https://winscp.net/eng/index.php
