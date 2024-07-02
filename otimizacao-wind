@@ -19,3 +19,11 @@ loja: TranslucentTB
 internet: MoeWalls
 
 steam: Wallpaper Engine
+
+Configurando a transparência nativa:
+Para tornar a barra de tarefas e as janelas do explorador de arquivos transparentes sem usar aplicativos externos, siga estas etapas:
+Pressione Windows + R para abrir a caixa de diálogo Executar.
+Digite regedit e pressione Enter para abrir o Editor de Registro.
+Navegue até HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize.
+Dê um duplo clique em EnableTransparency e altere o valor de 1 (padrão) para 2 (transparência total).
+Reinicie o Explorador do Windows ou o computador para aplicar a alteração.
