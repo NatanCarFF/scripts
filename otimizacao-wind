@@ -13,3 +13,5 @@ win+r: cleanmgr
 ctrl+shift+esc
 
 cmd: sfc /scannow
+
+loja: TranslucentTB
