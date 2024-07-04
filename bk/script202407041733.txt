@@ -1,0 +1,48 @@
+@echo off
+echo -----------------------------------------------------
+echo Optimizing Windows 11...
+echo -----------------------------------------------------
+
+:: Desativar aplicativos em segundo plano desnecessários
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v GlobalUserDisabled /t REG_DWORD /d 1 /f >nul 2>&1
+
+:: Desativar transparência e efeitos visuais
+reg add "HKCU\Software\Microsoft\Windows\DWM" /v EnableTransparency /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v DisableAcrylicBackgroundOnLogon /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v EnableBlurBehind /t REG_DWORD /d 0 /f >nul 2>&1
+
+:: Desativar animações de janelas
+reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v MinAnimate /t REG_SZ /d 0 /f >nul 2>&1
+
+:: Desativar dicas de ferramentas
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v ShowInfoTip /t REG_DWORD /d 0 /f >nul 2>&1
+
+:: Desativar a pesquisa rápida de acesso
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Start_TrackProgs /t REG_DWORD /d 0 /f >nul 2>&1
+
+:: Acelerar menus de contexto
+reg add "HKCU\Control Panel\Desktop" /v MenuShowDelay /t REG_SZ /d 0 /f >nul 2>&1
+
+:: Desativar a compactação de atualizações do Windows Update
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v WaaSMedicService_Enable /t REG_DWORD /d 0 /f >nul 2>&1
+
+:: Desativar a execução de tarefas em segundo plano do Windows Update
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f >nul 2>&1
+
+:: Acelerar o boot do sistema
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v DisablePagingExecutive /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v LargeSystemCache /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\Dfrg\BootOptimizeFunction" /v Enable /t REG_SZ /d Y /f >nul 2>&1
+
+:: Limpar arquivos temporários e caches
+del /s /q /f %SystemRoot%\SoftwareDistribution\Download\*.* >nul 2>&1
+del /s /q /f %SystemRoot%\Temp\*.* >nul 2>&1
+del /s /q /f %SystemRoot%\Prefetch\*.* >nul 2>&1
+del /s /q /f %temp%\*.* >nul 2>&1
+del /s /q /f %USERPROFILE%\AppData\Local\Temp\*.* >nul 2>&1
+del /s /q /f %USERPROFILE%\AppData\Local\Microsoft\Windows\INetCache\*.* >nul 2>&1
+
+echo -----------------------------------------------------
+echo Windows 11 optimization complete.
+echo -----------------------------------------------------
+pause
