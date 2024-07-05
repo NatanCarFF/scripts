@@ -29,3 +29,5 @@ https://br.malwarebytes.com/premium/
 https://www.ccleaner.com/defraggler/download/standard
 
 PerfectDiskpro
+
+https://www.baboo.com.br/cursos/aula-10-desfragmentacao-dicas-finais-windows-rapido-seguro-2-0/
