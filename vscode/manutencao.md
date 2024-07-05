@@ -59,3 +59,6 @@ PerfectDiskpro
 ``
 https://www.baboo.com.br/cursos/aula-10-desfragmentacao-dicas-finais-windows-rapido-seguro-2-0/
 ``
+``
+https://www.baboo.com.br/tutorial-windows/script-do-baboo-para-apagar-arquivos-temporarios/
+``
