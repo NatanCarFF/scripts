@@ -31,6 +31,7 @@ https://ublockorigin.com/
 ``
 https://www.bitdefender.com/solutions/trafficlight.html
 ``
+----------------------------------
 ``
 https://www.kaspersky.com.br/downloads/free-virus-removal-tool
 ``
