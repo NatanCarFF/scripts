@@ -63,3 +63,7 @@ https://www.baboo.com.br/cursos/aula-10-desfragmentacao-dicas-finais-windows-rap
 ``
 https://www.baboo.com.br/tutorial-windows/script-do-baboo-para-apagar-arquivos-temporarios/
 ``
+##### DIRECTX
+``
+https://www.microsoft.com/en-us/download/details.aspx?id=35
+``
