@@ -65,5 +65,8 @@ https://www.baboo.com.br/tutorial-windows/script-do-baboo-para-apagar-arquivos-t
 ``
 ##### DIRECTX
 ``
+dxdiag
+``
+``
 https://www.microsoft.com/en-us/download/details.aspx?id=35
 ``
