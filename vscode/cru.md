@@ -6,3 +6,5 @@
 optmizer
 https://github.com/hellzerg/optimizer
 Remove-Item (Get-PSReadlineOption).HistorySavePath
+
+winget install -e RandyRants.SharpKeys
