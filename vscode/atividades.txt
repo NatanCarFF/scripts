@@ -1,0 +1,107 @@
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+## PRIORIDADES:
+
+// INSTALAR O AGENTE PULSUS E CONFIGURAR TODOS OS TABLETS E SMARTHFONES DA EMPRESA
+
+// DOCUMENTAR TODAS AS PORTAS DE SWITCH DA EMPRESA EM PLANILHA DE CONTROLE
+
+// DESCREVER TODOS OS CHAMADOS NO PAINEL DO GLPI
+
+// ATENDER TODOS OS CHAMADOS DO GRUPO DE TI DO TEAMS
+
+// RENOMEAR TODOS OS COMPUTADORES DA EMPRESA COM AS NOMENCLATURAS DE ACORDO COM O SETOR
+BLM01 = Codigo Nacional de Localidade unidade Matriz Belém
+DKS01 = Desktop 01 da Matriz Belém
+NTB01 = Notebook 01
+Nomenclatura de servidores
+BR 	- País
+PA 	- Estado
+BCC - Site
+VSS - Virtualizador de sistemas e serviços
+	BR-PA-BLM-BBC-VSS-01
+Nomenclatura de instâncias
+BCC - Site
+VSS - Virtualizador de sistemas e serviços
+	BCC-VSS-01-netbox01
+	BCC-VSS-01-glpi01
+	bccvss12glpi02
+	BCC-VSS-12-ad01
+Nomenclatura de desktops
+BELÉM WLAN MATRIZ		- BLM01
+BELÉM WLAN LOJA FILIAL		- BLM02
+BELÉM SHOPPING METRÓPOLE	- BLM03
+BELÉM SHOPPING CASTANHEIRA	- BLM04
+BELÉM SHOPPING FORMOSA		- BLM05
+BENEVIDES LOJA WLAN 		- BNV01
+NOVA ESPERANÇA DO PIRIÁ		- NPL01
+	SCDBLM01DKS01
+	QLDBLM01DKS01
+	PJTBLM01DKS01
+	OPRBLM01DKS01
+	MKTBLM01DKS01
+	MNTBLM01DKS01
+	FRTBLM01DKS01
+	FINBLM01DKS01
+	FATBLM01DKS01
+	ESTQBLM01DKS01
+	ENGBLM01DKS01
+	DPBLM01DKS01
+	CONTBLM01DKS01
+	CMPBLM01DKS01
+	CMCLBLM01DKS01
+	CBRBLM01DKS01
+	BCKOBLM01DKS01
+	ATDBLM01DKS01
+	NOCBLM01DKS01
+Nomenclatura de Setores
+SERVICE-DESK		- 	SCD
+QUALIDADE		- 	QLD
+PROJETOS		- 	PJT
+OPERACIONAL		-	OPR
+MARKETING		-	MKT
+MANUTENCAO		-	MNT
+FROTA			-	FRT
+FINANCEIRO		-	FIN
+FATURAMENTO		-	FAT
+ESTOQUE			-	ESTQ
+ENGENHARIA		-	ENG
+DP			-	DP
+CONTABILIDADE		-	CONT
+COMPRAS			-	CMP
+COMERCIAL		-	CMCL
+COBRANCA		-	CBR
+BACKOFICE		-	BCKO
+ATENDIMENTO		-	ATD
+NOC			-	NOC
+http://172.17.111.206
+
+// INSTALAR GLPI AGENT EM TODOS OS COMPUTADORES DA EMPRESA
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+## ATIVIDADE COMUM:
+
+// DESENVOLVER APP DE CONTROLE DE EPI PARA RH
+
+// FAZER A MANUTENÇÃO DE TODOS OS COMPUTADORES DA EMPRESA
+
+// INSTALAR O AGENT KASPESKY E SUBIR PARA O DOMÍNIO TODOS OS COMPUTADORES DA EMPRESA
+HOST 172.17.111.246 BR-PA-BLM1-DCP - 172.17.111.248 BR-PA-BLM1-DCS
+wlan.int.br
+agente Kaspersky 172.17.111.250 - ativar proteção do serviço agente de rede
+definir DNS IPv4 172.17.111.246 - 172.17.111.248
+
+// VERIFICAR DIARIAMENTE OS E-MAILS DO INFRAESTRUTURA
+
+// RESOLVER PROBLEMAS DO PAINEL DE CONTROLE DO PULSUS
+
+// FAZER A MONTAGEM E INSTALAÇÃO DOS COMPUTADORES DA EMPRESA
+
+// INSTALAR OS PONTOS DE REDE E OS CABOS DE REDE DA EMPRESA EM TODOS OS COMPUTADORES
+
+// SOLICITAR VIA RBX OS EQUIPAMENTOS NECESSÁRIOS PARA SUBSTITUIR OS DANIFICADOS DOS SETORES
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
