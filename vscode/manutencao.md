@@ -1,5 +1,5 @@
 ### Rename
-`` wmic computersystem where name="%computername% call rename name="meupc"
+`` wmic computersystem where name="%computername%" call rename name="meupc" ``
 
 
 ### WD Data Lifeguard
