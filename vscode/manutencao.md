@@ -1,3 +1,7 @@
+### Rename
+`` wmic computersystem where name="%computername% call rename name="meupc"
+
+
 ### WD Data Lifeguard
 ``
 https://windowsrapidoeseguro.com.br/1
