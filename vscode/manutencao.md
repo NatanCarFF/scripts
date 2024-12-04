@@ -1,3 +1,6 @@
+### adm
+runas /user:Administrador "cmd.exe"
+
 ### Rename
 `` wmic computersystem where name="%computername%" call rename name="meupc" ``
 
