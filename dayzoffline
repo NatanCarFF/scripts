@@ -1,0 +1,40 @@
+Instalar e jogar **DayZ** no modo offline pode ser feito através de algumas etapas específicas. O modo offline é geralmente usado para testes, aprendizado ou criação de conteúdo no jogo. Siga este guia:
+
+---
+
+### **Requisitos**
+1. **DayZ Original**: Certifique-se de ter o jogo instalado no **Steam**.
+2. **Ferramentas de Modding**: Instale o pacote **DayZ Tools** disponível gratuitamente no Steam.
+
+---
+
+### **Passo a Passo para Configuração do Modo Offline**
+1. **Ativando o DayZ Tools**:
+   - Abra o **Steam**.
+   - Vá até sua biblioteca e procure por **DayZ Tools**.
+   - Instale este software, pois ele é essencial para configurar o modo offline.
+
+2. **Acessando os Arquivos do Jogo**:
+   - Clique com o botão direito no **DayZ** na sua biblioteca Steam.
+   - Vá em **Gerenciar > Navegar pelos arquivos locais**.
+
+3. **Baixe o Modo Offline**:
+   - No diretório do jogo, procure pela pasta `Missions`. Se ela não estiver disponível, crie-a.
+   - Baixe o arquivo "DayZ Community Offline Mode" no GitHub [Community Offline Mode no GitHub](https://github.com/Arkensor/DayZCommunityOfflineMode).
+   - Extraia os arquivos do modo offline para a pasta `Missions`.
+
+4. **Preparando o Jogo para Offline**:
+   - Dentro do diretório do jogo, vá até a pasta onde o modo offline foi extraído.
+   - Localize o arquivo `DayZCommunityOfflineMode.bat` e execute-o.
+
+5. **Executando o Jogo Offline**:
+   - O jogo será iniciado automaticamente no modo offline.
+   - Você terá acesso a ferramentas de modding e poderá explorar o mapa sem necessidade de conexão com servidores.
+
+---
+
+### **Dicas Adicionais**
+- **Comandos no Jogo**: Use a tecla `Y` para abrir o menu de modding no modo offline.
+- **Explorar Recursos**: Teste mods ou familiarize-se com mecânicas do jogo.
+- **Configurações Gráficas**: Ajuste configurações para melhorar o desempenho, já que o modo offline pode exigir mais do seu sistema ao usar ferramentas extras.
+
