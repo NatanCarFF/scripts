@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background: #121212;
+            color: #e0e0e0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: #1e1e1e;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: left;
+            color: #00ff41;
+            text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+            font-size: 2.5rem;
+            display: inline-block;
+            margin-right: 50px;
+        }
+        .user-info {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #00ff41;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .user-info input {
+            background: transparent;
+            border: none;
+            color: #00ff41;
+            font-size: 1.5rem;
+            margin-left: 0.5rem;
+            width: 150px;
+        }
+        .task-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .task-form input[type="text"], .task-form input[type="date"] {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background: #222;
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+        .task-form button {
+            padding: 0.5rem 1rem;
+            background-color: #00ff41;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .task-form button:hover {
+            background-color: #00cc34;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .task-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border: 1px solid #444;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            background: #222;
+            color: #e0e0e0;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .task-list li .delete-btn {
+            background-color: #ff004f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .task-list li .delete-btn:hover {
+            background-color: #cc003f;
+        }
+        .task-list li .color-select {
+            margin-left: 1rem;
+            padding: 0.3rem;
+            border-radius: 4px;
+            background: #111;
+            color: #e0e0e0;
+            border: 1px solid #333;
+        }
+        .save-btn {
+            display: block;
+            margin: 1rem auto;
+            padding: 0.5rem 1rem;
+            background-color: #00ff41;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .save-btn:hover {
+            background-color: #00cc34;
+        }
+        .icon {
+            margin-right: 0.5rem;
+        }
+        .task-time, .task-deadline {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .critical {
+            background-color: #ffadad;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tarefas</h1>
+        <div class="user-info">
+            <span class="user-icon">👤</span>
+            <input type="text" id="username" value="Natanael" />
+        </div>
+        <form class="task-form" id="taskForm">
+            <input type="text" id="taskInput" placeholder="Adicione uma nova tarefa" required />
+            <input type="date" id="taskDeadline" required />
+            <button type="submit">Adicionar</button>
+        </form>
+        <ul class="task-list" id="taskList">
+            <!-- Tarefas serão adicionadas aqui -->
+        </ul>
+        <button class="save-btn" id="saveTasks">Salvar Alterações</button>
+    </div>
+
+    <script>
+        const taskForm = document.getElementById('taskForm');
+        const taskInput = document.getElementById('taskInput');
+        const taskDeadline = document.getElementById('taskDeadline');
+        const taskList = document.getElementById('taskList');
+        const saveButton = document.getElementById('saveTasks');
+        const usernameInput = document.getElementById('username');
+
+        // Função para carregar tarefas e o nome do usuário salvos
+        function loadTasks() {
+            const savedTasks = localStorage.getItem('tasks');
+            const savedUsername = localStorage.getItem('username');
+            
+            if (savedUsername) {
+                usernameInput.value = savedUsername; // Salva o nome do usuário
+            }
+            
+            if (savedTasks) {
+                taskList.innerHTML = savedTasks;
+
+                // Re-adiciona os eventos às tarefas e seletores
+                taskList.querySelectorAll('li').forEach(li => {
+                    li.querySelector('.delete-btn').addEventListener('click', function() {
+                        li.remove();
+                        saveTasks(); // Salva após exclusão
+                    });
+
+                    li.querySelector('.color-select').addEventListener('change', function() {
+                        li.style.backgroundColor = this.value;
+                        updateIcon(li, this.value);
+                        saveTasks(); // Salva após alteração de cor
+                    });
+
+                    li.querySelector('.move-up-btn').addEventListener('click', function() {
+                        const prevTask = li.previousElementSibling;
+                        if (prevTask) {
+                            taskList.insertBefore(li, prevTask);
+                            saveTasks(); // Salva após mover
+                        }
+                    });
+
+                    li.querySelector('.move-down-btn').addEventListener('click', function() {
+                        const nextTask = li.nextElementSibling;
+                        if (nextTask) {
+                            taskList.insertBefore(nextTask, li);
+                            saveTasks(); // Salva após mover
+                        }
+                    });
+                });
+            }
+        }
+
+        // Função para salvar tarefas e o nome do usuário
+        function saveTasks() {
+            localStorage.setItem('tasks', taskList.innerHTML);
+            localStorage.setItem('username', usernameInput.value); // Salva o nome do usuário
+        }
+
+        // Função para atualizar o ícone com base na prioridade
+        function updateIcon(li, color) {
+            const icon = li.querySelector('.icon');
+            switch (color) {
+                case '#caffbf':
+                    icon.textContent = '🟢'; // Baixa prioridade
+                    break;
+                case '#fdffb6':
+                    icon.textContent = '🟡'; // Média prioridade
+                    break;
+                case '#ffadad':
+                    icon.textContent = '🔴'; // Alta prioridade
+                    break;
+                case '#a0c4ff':
+                    icon.textContent = '✅'; // Concluído
+                    break;
+                case '#ffd6a5':
+                    icon.textContent = '❌'; // Cancelado
+                    break;
+                case '#ff004f':
+                    icon.textContent = '❗'; // Crítico
+                    break;
+                default:
+                    icon.textContent = '';
+            }
+        }
+
+        taskForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const taskText = taskInput.value;
+            const deadline = taskDeadline.value;
+            if (taskText.trim() === '' || !deadline) return;
+
+            const currentDate = new Date().toLocaleString();
+
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="icon">🟢</span><span class="task-text">${taskText}</span> 
+                <select class="color-select">
+                    <option value="#caffbf">Baixa</option>
+                    <option value="#fdffb6">Média</option>
+                    <option value="#ffadad">Alta</option>
+                    <option value="#a0c4ff">Concluído</option>
+                    <option value="#ffd6a5">Cancelado</option>
+                    <option value="#ff004f">Crítico</option>
+                </select> 
+                <button class="delete-btn">Excluir</button>
+                <button class="move-up-btn">↑</button>
+                <button class="move-down-btn">↓</button>
+                <span class="task-time">Criada em: ${currentDate}</span>
+                <span class="task-deadline">Prazo: ${deadline}</span>`;
+
+            li.style.color = '#333';
+
+            const colorSelect = li.querySelector('.color-select');
+            colorSelect.addEventListener('change', function() {
+                li.style.backgroundColor = colorSelect.value;
+                updateIcon(li, colorSelect.value);
+                saveTasks(); // Salva após alterar a cor
+            });
+
+            li.querySelector('.delete-btn').addEventListener('click', function() {
+                li.remove();
+                saveTasks(); // Salva após exclusão
+            });
+
+            li.querySelector('.move-up-btn').addEventListener('click', function() {
+                const prevTask = li.previousElementSibling;
+                if (prevTask) {
+                    taskList.insertBefore(li, prevTask);
+                    saveTasks(); // Salva após mover
+                }
+            });
+
+            li.querySelector('.move-down-btn').addEventListener('click', function() {
+                const nextTask = li.nextElementSibling;
+                if (nextTask) {
+                    taskList.insertBefore(nextTask, li);
+                    saveTasks(); // Salva após mover
+                }
+            });
+
+            taskList.appendChild(li);
+            taskInput.value = '';
+            taskDeadline.value = '';
+            taskInput.focus();
+            saveTasks(); // Salva após adicionar a tarefa
+        });
+
+        saveButton.addEventListener('click', saveTasks);
+
+        loadTasks();
+    </script>
+</body>
+</html>
