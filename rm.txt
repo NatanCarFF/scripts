@@ -1,0 +1,22 @@
+# Lista de pastas a serem removidas dentro de AppData\Local\Programs
+$foldersToDelete = @("Opera GX", "Opera")
+
+# Caminho base de usuários
+$userFolders = Get-ChildItem "C:\Users" -Directory
+
+foreach ($user in $userFolders) {
+    foreach ($folder in $foldersToDelete) {
+        $targetPath = Join-Path $user.FullName "AppData\Local\Programs\$folder"
+        
+        if (Test-Path $targetPath) {
+            try {
+                Remove-Item -Path $targetPath -Recurse -Force
+                Write-Host "Removido: $targetPath"
+            } catch {
+                Write-Warning ("Erro ao remover " + $targetPath + ": " + $_.Exception.Message)
+            }
+        } else {
+            Write-Host "Não encontrado: $targetPath"
+        }
+    }
+}
