@@ -1,5 +1,5 @@
 # Lista de pastas a serem removidas dentro de AppData\Local\Programs
-$foldersToDelete = @("Opera GX", "Opera")
+$foldersToDelete = @("Opera GX", "Opera", "Opera Air")
 
 # Caminho base de usuários
 $userFolders = Get-ChildItem "C:\Users" -Directory
@@ -19,4 +19,5 @@ foreach ($user in $userFolders) {
             Write-Host "Não encontrado: $targetPath"
         }
     }
+
 }
