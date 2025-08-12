@@ -5,6 +5,7 @@ $foldersToDelete = @("Opera GX", "Opera", "Opera Air")
 $userFolders = Get-ChildItem "C:\Users" -Directory
 
 foreach ($user in $userFolders) {
+    # Remover pastas específicas do AppData\Local\Programs
     foreach ($folder in $foldersToDelete) {
         $targetPath = Join-Path $user.FullName "AppData\Local\Programs\$folder"
         
@@ -20,4 +21,16 @@ foreach ($user in $userFolders) {
         }
     }
 
+    # Limpar pasta Downloads do usuário
+    $downloadsPath = Join-Path $user.FullName "Downloads"
+    if (Test-Path $downloadsPath) {
+        try {
+            Get-ChildItem -Path $downloadsPath -Recurse -Force -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+            Write-Host "Downloads limpos para o usuário: $($user.Name)"
+        } catch {
+            Write-Warning ("Erro ao limpar Downloads de " + $user.FullName + ": " + $_.Exception.Message)
+        }
+    } else {
+        Write-Host "Pasta Downloads não encontrada para: $($user.Name)"
+    }
 }
