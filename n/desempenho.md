@@ -1,0 +1,2 @@
+Win + R
+SystemPropertiesPerformance.exe
