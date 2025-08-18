@@ -1,0 +1,2 @@
+Win + R
+shell:startup
