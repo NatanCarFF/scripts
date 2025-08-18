@@ -1,0 +1,36 @@
+# Script: Ativar/Desativar Modo de Jogo do Windows
+# Autor: Natanael (adaptado por ChatGPT)
+
+Write-Host "🎮 Gerenciador do Modo de Jogo do Windows" -ForegroundColor Cyan
+
+# Lê o estado atual
+$chave = "HKCU:\Software\Microsoft\GameBar"
+$valor = Get-ItemProperty -Path $chave -Name "AllowAutoGameMode" -ErrorAction SilentlyContinue
+
+if ($valor.AllowAutoGameMode -eq 1) {
+    Write-Host "✅ O Modo de Jogo está ATIVADO." -ForegroundColor Green
+} elseif ($valor.AllowAutoGameMode -eq 0) {
+    Write-Host "❌ O Modo de Jogo está DESATIVADO." -ForegroundColor Red
+} else {
+    Write-Host "⚠️ O Modo de Jogo ainda não está configurado." -ForegroundColor Yellow
+}
+
+# Pergunta ao usuário
+$opcao = Read-Host "`nDigite (1) para Ativar, (2) para Desativar, (3) para Sair"
+
+switch ($opcao) {
+    "1" {
+        Set-ItemProperty -Path $chave -Name "AllowAutoGameMode" -Value 1 -Type DWord
+        Write-Host "🎮 Modo de Jogo ATIVADO com sucesso." -ForegroundColor Green
+    }
+    "2" {
+        Set-ItemProperty -Path $chave -Name "AllowAutoGameMode" -Value 0 -Type DWord
+        Write-Host "🛑 Modo de Jogo DESATIVADO." -ForegroundColor Red
+    }
+    "3" {
+        Write-Host "❌ Saindo sem alterações."
+    }
+    Default {
+        Write-Host "Opção inválida."
+    }
+}
