@@ -1,0 +1,34 @@
+# Script para verificar e gerenciar o uso do HPET no Windows
+# Autor: Natanael Carvalho da Silva
+
+# Verifica status atual do HPET
+$status = bcdedit /enum | Select-String "useplatformclock"
+
+if ($status) {
+    Write-Host "⚙️ Status atual do HPET:"
+    Write-Host $status.ToString()
+} else {
+    Write-Host "⚙️ O HPET não está configurado explicitamente (Windows decide automaticamente)."
+}
+
+# Pergunta se o usuário deseja alterar
+$opcao = Read-Host "`nDeseja (1) Ativar, (2) Desativar ou (3) Sair?"
+
+switch ($opcao) {
+    "1" {
+        Write-Host "🔵 Ativando HPET..."
+        Start-Process "bcdedit" -ArgumentList "/set useplatformclock true" -Verb RunAs
+        Write-Host "✅ HPET foi ativado. Reinicie o PC para aplicar."
+    }
+    "2" {
+        Write-Host "🟠 Desativando HPET..."
+        Start-Process "bcdedit" -ArgumentList "/deletevalue useplatformclock" -Verb RunAs
+        Write-Host "✅ HPET foi desativado (Windows escolherá automaticamente). Reinicie o PC para aplicar."
+    }
+    "3" {
+        Write-Host "❌ Saindo sem alterações."
+    }
+    default {
+        Write-Host "Opção inválida."
+    }
+}
