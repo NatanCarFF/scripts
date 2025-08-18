@@ -1,0 +1,19 @@
+# Script para ajustar aparência e desempenho do Windows
+# Modo: Melhor desempenho (otimizado)
+
+Write-Host "⚙️ Ajustando o Windows para melhor desempenho..."
+
+# Define modo de desempenho (0=automático, 1=melhor aparência, 2=melhor desempenho, 3=personalizado)
+Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name VisualFXSetting -Value 2
+
+# Efeitos visuais individuais (1 = ativo, 0 = desativo)
+$efeitos = @{
+    "UserPreferencesMask" = ([byte[]](0x90,0x12,0x03,0x80,0x10,0x00,0x00,0x00))
+}
+
+# Aplicar configurações
+foreach ($efeito in $efeitos.GetEnumerator()) {
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name $efeito.Key -Value $efeito.Value
+}
+
+Write-Host "✅ Configurações aplicadas. Reinicie o PC para ver o efeito."
