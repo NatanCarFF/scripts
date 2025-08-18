@@ -1,0 +1,76 @@
+# Script: Gerenciar Inicialização do Windows
+# Autor: Natanael (adaptado por ChatGPT)
+
+Write-Host "🔍 Listando programas de inicialização..." -ForegroundColor Cyan
+
+# Função para listar programas da inicialização
+function Get-StartupPrograms {
+    $startup = @()
+
+    # Registro - Current User
+    $startup += Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" | 
+        ForEach-Object { $_.PSObject.Properties | Where-Object { $_.Name -ne "PSPath" -and $_.Name -ne "PSParentPath" -and $_.Name -ne "PSChildName" -and $_.Name -ne "PSDrive" -and $_.Name -ne "PSProvider" } }
+
+    # Registro - Local Machine
+    $startup += Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" | 
+        ForEach-Object { $_.PSObject.Properties | Where-Object { $_.Name -ne "PSPath" -and $_.Name -ne "PSParentPath" -and $_.Name -ne "PSChildName" -and $_.Name -ne "PSDrive" -and $_.Name -ne "PSProvider" } }
+
+    # Pasta de inicialização do usuário
+    $userStartup = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup"
+    if (Test-Path $userStartup) {
+        Get-ChildItem $userStartup | ForEach-Object {
+            $startup += @{ Name = $_.Name; Value = $_.FullName }
+        }
+    }
+
+    return $startup
+}
+
+$programas = Get-StartupPrograms
+$i = 1
+
+foreach ($p in $programas) {
+    Write-Host "$i - $($p.Name) => $($p.Value)"
+    $i++
+}
+
+if ($programas.Count -eq 0) {
+    Write-Host "✅ Nenhum programa configurado para inicializar automaticamente." -ForegroundColor Green
+    exit
+}
+
+# Perguntar ao usuário
+$opcao = Read-Host "`nDigite o número do programa que deseja gerenciar (ou 0 para sair)"
+
+if ($opcao -eq 0) {
+    Write-Host "❌ Saindo sem alterações."
+    exit
+}
+
+$selecionado = $programas[$opcao-1]
+
+Write-Host "`nVocê escolheu: $($selecionado.Name)"
+$acao = Read-Host "Digite (D) para desativar ou (A) para ativar novamente (se já foi removido)"
+
+switch ($acao.ToUpper()) {
+    "D" {
+        # Tenta remover das chaves de registro
+        Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name $selecionado.Name -ErrorAction SilentlyContinue
+        Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name $selecionado.Name -ErrorAction SilentlyContinue
+
+        # Se for um arquivo de atalho na pasta de inicialização, deleta
+        if (Test-Path $selecionado.Value) {
+            Remove-Item $selecionado.Value -Force
+        }
+
+        Write-Host "🟠 Programa removido da inicialização." -ForegroundColor Yellow
+    }
+    "A" {
+        $caminho = Read-Host "Digite o caminho do executável para adicionar à inicialização"
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name $selecionado.Name -Value "`"$caminho`""
+        Write-Host "✅ Programa adicionado de volta à inicialização." -ForegroundColor Green
+    }
+    Default {
+        Write-Host "❌ Opção inválida."
+    }
+}
